@@ -1,1 +1,32 @@
 
+class Node{
+    int data;
+    Node next;
+
+    Node(int x){
+        data = x;
+        next = null;
+    }
+ static Node insertAtBegin(Node head , int x){
+        Node temp = new Node(x);
+        temp.next = head;
+        return temp;
+    }
+}
+public class insertAtBeginning {
+    public static void printList(Node head){
+        Node current = head;
+         while(current != null){
+            System.out.print(current.data+" ");
+            current = current.next;
+         }
+    }
+    public static void main(String[] args) {
+        Node head = null ;  //creating object: head
+        head = Node.insertAtBegin(head, 30);
+        head = Node.insertAtBegin(head, 20);
+        head = Node.insertAtBegin(head, 10);
+
+        printList(head);
+    }
+}
