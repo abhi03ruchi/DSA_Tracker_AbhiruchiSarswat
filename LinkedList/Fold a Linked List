@@ -1,0 +1,116 @@
+//MY SOLUTION
+    public static Node revList(Node head){
+        Node prev = null;
+        Node curr = head;
+        if(head == null){
+            return null;
+        }
+        if(head.next == null){
+            return head;
+        }
+
+        while(curr != null){
+            Node temp = curr.next;
+            curr.next = prev;
+            //update for next iteration
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+    Node reorderlist(Node head) {
+        Node curr = head;
+        while(curr != null ){
+            Node rev = revList(curr.next);
+            curr.next = rev;
+            curr = rev;
+        }
+        return head;
+    }
+
+    // SOLUTION 2
+    Node reorder2(Node head) {
+        Node curr = head;
+        while(curr != null ){
+            Node last = curr;
+            while(last.next.next != null){
+                last = last.next;
+            }
+            Node temp = last;
+            last.next = null; 
+
+            Node curr_next = curr.next;
+            curr.next = temp;
+            temp.next = curr_next;
+
+            curr = curr_next;
+        }
+        return head;
+    }
+    //SOLUTION 3 
+    void reorder3(Node head){
+        Node slow = head;
+        Node fast = head.next;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+       head = new Node(0);
+       Node curr = head;
+
+        Node node1 = head;
+        Node node2 = slow.next;
+        slow.next = null;
+
+        node2 = revList(node2);
+
+        while(node1 != null || node2 != null){
+            if(node1 != null){
+                curr.next = node1;
+                curr = curr.next;
+                node1 = node1.next;
+            }
+            if(node2 != null){
+                curr.next = node2;
+                curr = curr.next;
+                node2 = node2.next;
+            }
+        }
+        head = head.next;
+    }
+
+    //SOLUTION 4
+    Node reorder4(Node head) {
+        if(head == null || head.next==null) return head;
+        
+        Node slow = head;
+        Node fast = head;
+        Node prevSlow = null;
+        
+        while(fast != null && fast.next != null)
+        {
+            prevSlow = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        Node reverseHead = revList(slow);
+        
+        prevSlow.next = null;
+        fast = head;
+        slow = reverseHead;
+        
+        while(fast != null)
+        {
+            Node tempFast = fast.next;
+            Node tempSlow = slow.next;
+            fast.next = slow;
+            if(tempSlow != null && tempFast != null) slow.next = tempFast;
+            
+            fast = tempFast;
+            slow = tempSlow;
+        }
+        return head;
+    }
