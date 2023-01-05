@@ -1,0 +1,162 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+//METHOD 1) 
+public class Add2NosRepresentedByLL {
+
+    static Node addTwoLists(Node first, Node second){
+        Node start1 = new Node(0);
+        start1.next = first;
+        
+        Node start2 = new Node(0);
+        start2.next = second;
+        
+        addPrecedingZeros(start1 , start2);
+        
+        Node result = new Node(0);
+        
+        if( (sumOf2Nodes(start1.next , start2.next , result) == 1) ){
+            Node node = new Node(1);
+            node.next = result.next;
+            result.next = node;
+        } 
+        return result.next;
+    }
+
+    static int sumOf2Nodes(Node first , Node second , Node result){
+        if(first == null){
+            return 0;
+        }
+        int number = first.data + second.data + sumOf2Nodes(first.next , second.next,result);
+        Node node = new Node (number%10);
+        node.next = result.next;
+        result.next = node;
+        
+        return (number/10);
+    }
+
+    static void addPrecedingZeros(Node start1, Node start2) {
+        Node next1 = start1.next;
+        Node next2 = start2.next;
+        
+        while( next1 != null && next2 != null ){
+            next1 = next1.next;
+            next2 = next2.next;
+        }
+        if(next1 == null && next2 != null){
+            while(next2 != null){
+                Node node = new Node(0);
+                node.next = start1.next;
+                start1.next = node;
+                next2 = next2.next;
+            }
+        }
+        if(next1 != null && next2 == null){
+            while(next1 != null){
+                Node node = new Node(0);
+                node.next = start2.next;
+                start2.next = node;
+                next1 = next1.next;
+            }
+        }
+    }
+    
+}
+
+
+//METHOD 2 (using stack)
+import java.util.Stack;
+public class Add2NosRepresentedByLLUsingStack { 
+    static Node addTwoLists(Node first, Node second){
+        Stack<Node> stk1 = new Stack<>();
+        Stack<Node> stk2 = new Stack<>();
+        Stack<Node> stk3 = new Stack<>();
+
+        Node start1 = first;
+        while(start1 != null){
+            stk1.push(start1);
+            start1 = start1.next;
+        }
+        Node start2 = second;
+        while(start2 != null){
+            stk2.push(start2);
+            start2 = start2.next;
+        }
+       
+        int carry = 0;
+        while( !stk1.isEmpty() && !stk2.isEmpty() ){
+            int val1 = stk1.pop().data;
+            int val2 = stk2.pop().data;
+
+            int sum = val1 + val2 + carry;
+            Node temp = new Node( sum % 10 );
+         
+            stk3.push(temp);
+
+            if(sum > 9){
+                carry = 1;
+            }
+            else{
+                carry = 0;
+            }
+        }
+
+        while( !stk1.isEmpty() ){
+            int val1 = stk1.pop().data;
+
+            int sum = val1 + carry;
+            Node temp = new Node( sum % 10 );
+         
+            stk3.push(temp);
+
+            if(sum > 9){
+                carry = 1;
+            }
+            else{
+                carry = 0;
+            }
+        }
+
+        while( !stk2.isEmpty() ){
+            int val2 = stk2.pop().data;
+
+            int sum = val2 + carry;
+            Node temp = new Node( sum % 10 );
+         
+            stk3.push(temp);
+
+            if(sum > 9){
+                carry = 1;
+            }
+            else{
+                carry = 0;
+            }
+        }
+
+        if(carry == 1){
+            Node temp = new Node(1);
+            stk3.push(temp);
+        }
+
+        Node curr = null;
+        if(! stk3.isEmpty()){
+            curr = stk3.peek();
+        }
+
+        while( ! stk3.isEmpty()){
+                Node temp = stk3.pop();
+                if(stk3.size() == 0){
+                    temp.next = null;
+                }
+                else{
+                temp.next = stk3.peek();
+            }
+        }
+        return curr;
+    }
