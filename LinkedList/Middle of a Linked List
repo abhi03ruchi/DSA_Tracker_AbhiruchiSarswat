@@ -1,0 +1,39 @@
+public class middleOfLinkedList {
+    //  NAIVE SOLUTION
+    public static void InMid1(Node head){
+        if(head == null){
+            return;
+        }
+        Node curr = head;
+        int size=0;
+        while(curr!= null){
+            curr= curr.next;
+            size++;
+        }
+        curr = head;
+        int i =0;
+        while (i<(size/2)){
+            curr=curr.next;
+            i++;
+        }
+        System.out.println(curr.data);
+    }
+     //EFFICIENT SOLUTION
+     public static void InMid2(Node head){
+        if(head == null){
+            return;
+        }
+        Node slow = head;
+        Node fast = head;
+        while(fast!= null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        System.out.println(slow.data);
+    }
+    public static void main(String[] args) {
+        Node head = new Node(10);
+        head.next = new Node(20);
+        InMid1(head);
+    }
+}
