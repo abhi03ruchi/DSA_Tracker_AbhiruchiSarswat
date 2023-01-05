@@ -1,0 +1,51 @@
+ //METHOD 1 - NAIVE SOLUTION
+    public static boolean isPalindrome1(Node head){
+     Deque<Character> stk = new ArrayDeque<>();
+     for (Node curr = head ; curr != null ; curr= curr.next) {
+        stk.push((char) curr.data);
+     }
+     
+     for (Node curr = head ; curr != null ; curr= curr.next) {
+        if( curr.data != stk.pop()){
+            return false;
+        }
+     }
+    return true;        
+    }
+
+//METHOD 2 - EFFECIENT SOLUTION
+public static Node revList( Node head ){
+        Node prev = null;
+        Node curr = head;
+
+        while(curr != null){
+            Node temp = curr.next;
+            curr.next = prev;
+            //update for next iteration
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+    boolean isPalindrome(Node head)  {
+        if(head == null) return true;
+        
+        Node slow = head;
+        Node fast = head;
+        
+        while(fast.next!=null&&fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node rev = revList(slow.next);
+        
+        Node curr = head;
+        while( rev!= null){
+            if(rev.data != curr.data){
+                return false;
+            }
+            rev = rev.next;
+            curr = curr.next;
+        } 
+        return true;
+    }   
