@@ -26,6 +26,27 @@ public class printNthNodeFromEnd {
         }
         return curr.data;
     }
+    // METHOD 2 (Using Two Pointers/References) 
+    public static int nodeFromEnd2(Node head , int n){
+        if(head == null){
+            return -1;
+        }
+        Node first = head;
+        int i =0;
+        while (i<n){
+            if(first == null){
+                return -1;
+            }
+            first=first.next;
+            i++;
+        }
+        Node second = head;
+        while (first != null){
+            second= second.next;
+            first=first.next;
+        }
+        return second.data;
+    }
 
     public static void main(String[] args) {
         Node head = new Node(10);
