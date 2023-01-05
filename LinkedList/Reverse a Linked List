@@ -1,0 +1,52 @@
+class Node{
+    int data;
+    Node next;
+    Node(int x){
+        data=x;
+        next=null;
+    }
+}
+
+public class Reverse_LL_Iterative {
+    public static void printlist(Node head){
+        Node current = head;
+         while(current != null){
+            System.out.print(current.data+" ");
+            current = current.next;
+         }
+    }
+     
+    //EFFECIENT SOLUTION
+    public static Node revList2(Node head){
+        Node prev = null;
+        Node curr = head;
+
+        while(curr != null){
+            Node temp = curr.next;
+            curr.next = prev;
+            //update for next iteration
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+
+    // EFFCIENT RECURSIVE SOLUTION - recursive version of above iterative solution
+    public static Node recRev(Node curr , Node prev){
+        if(curr == null){
+            return prev;
+        }
+        Node temp = curr.next;
+        curr.next = prev;
+        return recRev(temp, curr);
+    }
+    public static void main(String[] args) {
+        
+        Node head=new Node(10);
+    	head.next=new Node(20);
+    	head.next.next=new Node(30);
+    	printlist(head);
+    	head=recRev(head , null);
+    	printlist(head);
+    }
+}
