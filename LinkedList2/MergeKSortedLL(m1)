@@ -1,0 +1,52 @@
+public class MergeKsortedLL {
+    //Function to merge K sorted linked list.
+  
+    public static Node sortedMerge(Node head1, Node head2) {
+        if( head1 == null){
+            return head2;
+        }
+        if(head2== null){
+            return head1;
+        }
+        Node head = null;
+        Node tail = null;
+
+        if(head1.data > head2.data){
+            head=head2;
+            tail=head2;
+            head2 = head2.next;
+        }
+        else{
+            head=head1;
+            tail=head1;
+            head1 = head1.next;
+        }
+        while(head1!=null && head2!=null){
+            if(head2.data >= head1.data){
+                tail.next = head1;
+                tail=head1;
+                head1= head1.next;
+            }
+            else {
+                tail.next = head2;
+                tail=head2;
+                head2= head2.next;
+            }
+        }
+        if(head1 == null ){
+            tail.next=head2;
+        }
+        else{
+            tail.next=head1;
+        }
+        return head;
+    }
+    Node mergeKList(Node[]arr,int K)
+    {
+        Node l1 = arr[0];
+        for(int i = 1 ; i<K ; i++){
+            l1 = sortedMerge(l1 , arr[i]);
+        }
+        return l1;
+    }
+}
