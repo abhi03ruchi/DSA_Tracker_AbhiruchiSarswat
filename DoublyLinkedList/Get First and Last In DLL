@@ -1,0 +1,40 @@
+class Node{
+     int data;
+     Node prev;
+     Node next;
+     Node(int x){
+         data = x;
+         prev = null;
+         next = null;
+     }
+ }
+  class DLL{
+      public static int getCount(Node head) {
+          Node curr = head;
+          int size =0;
+          while (curr != null){
+              curr=curr.next;
+              size++;
+          }
+          return size;
+      }
+      public static  boolean isEmpty( Node head){
+          return head == null;
+      }
+      public static int getFirst(Node head){
+          if( isEmpty(head)){
+              return -1;
+          }
+          return head.data;
+      }
+      public static int getLast(Node head){
+          if( isEmpty(head)){
+              return -1;
+          }
+          Node curr = head;
+          while (curr.next!= null){
+              curr = curr.next;
+          }
+          return curr.data;
+      }
+ }
