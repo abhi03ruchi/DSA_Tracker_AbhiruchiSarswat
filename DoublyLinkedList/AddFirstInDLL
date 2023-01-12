@@ -1,0 +1,18 @@
+class Node{
+    int data;
+    Node prev;
+    Node next;
+    Node(int x){
+        data = x;
+        prev = null;
+        next = null;
+    }
+    static Node insertBegin(Node head , int x){
+        Node temp = new Node(x);
+        temp.next = head;
+        if( head != null){ 
+            head.prev = temp;
+        }
+        return temp;
+    }
+    }
