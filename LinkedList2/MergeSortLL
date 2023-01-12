@@ -1,0 +1,87 @@
+public class MergeSortForLinkedList {
+    public static Node getMiddle(Node head) {
+        if (head == null)
+            return head;
+
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    public static Node sortedMerge(Node head1, Node head2) {
+        if( head1 == null){
+            return head2;
+        }
+        if(head2== null){
+            return head1;
+        }
+        Node head = null;
+        Node tail = null;
+
+        if(head1.data > head2.data){
+            head=head2;
+            tail=head2;
+            head2 = head2.next;
+        }
+        else{
+            head=head1;
+            tail=head1;
+            head1 = head1.next;
+        }
+        while(head1!=null && head2!=null){
+            if(head2.data >= head1.data){
+                tail.next = head1;
+                tail=head1;
+                head1= head1.next;
+            }
+            else {
+                tail.next = head2;
+                tail=head2;
+                head2= head2.next;
+            }
+        }
+        if(head1 == null ){
+            tail.next=head2;
+        }
+        else{
+            tail.next=head1;
+        }
+        return head;
+    }
+    static Node mergeSort(Node head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        Node mid = getMiddle(head);
+        Node nextOfMiddle = mid.next;
+        mid.next = null;
+        Node half1 = mergeSort(head);
+        Node half2 = mergeSort(nextOfMiddle);
+        Node HEAD = sortedMerge(half1 , half2);
+        return HEAD;
+    }
+    public static void printList(Node head) {
+        Node current = head;
+        while (current != null){
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(10);
+        head.next = new Node(12);
+        head.next.next = new Node(11);
+        head.next.next.next = new Node(11);
+        head.next.next.next.next = new Node(12);
+        head.next.next.next.next.next = new Node(11);
+        head.next.next.next.next.next.next = new Node(10);
+
+       Node h = mergeSort(head);
+       printList(h);
+    }
+
+}
