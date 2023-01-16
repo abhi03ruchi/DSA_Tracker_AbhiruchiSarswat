@@ -1,0 +1,75 @@
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int d) {
+        data = d;
+        next = null;
+        prev = null;
+    }
+}
+  class DLL{
+      public static int getCount(Node head) {
+          Node curr = head;
+          int size =0;
+          while (curr != null){
+              curr=curr.next;
+              size++;
+          }
+          return size;
+      }
+     public static Node removeAt(Node head ,int idx ){
+         if(head == null){
+             return null ;
+         }
+
+         Node curr = head;
+         int size = getCount(head);
+         if(idx == 0){
+             head = head.next;
+             head.prev = null;
+             return head;
+         }
+         else if( idx > size){
+             return head;
+         }
+         else if(idx + 1 == size){
+             while (idx > 0) {
+                 curr = curr.next;
+                 idx--;
+             }
+
+             curr.prev.next = null;
+             curr.prev = null;
+             return head;
+         }
+         else{
+             while (idx > 0) {
+             curr = curr.next;
+             idx--;
+         }
+             curr.next.prev = curr.prev;
+             curr.prev.next = curr.next;
+             return head;
+     }
+  }
+      public static void printList(Node head){
+          Node curr = head;
+          while (curr != null){
+              System.out.print(curr.data+" ");
+              curr = curr.next;
+          }
+      }
+
+      public static void main(String[] args) {
+          Node head=new Node(10);
+          Node temp1=new Node(20);
+          Node temp2=new Node(30);
+          head.next=temp1;
+          temp1.prev=head;
+          temp1.next=temp2;
+          temp2.prev=temp1;
+          Node ad = removeAt(head , 4);
+          printList(ad);
+      }
+      }
