@@ -1,0 +1,54 @@
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int d) {
+        data = d;
+        next = null;
+        prev = null;
+    }
+}
+  class Dll{
+      public static int getCount(Node head) {
+          Node curr = head;
+          int size =0;
+          while (curr != null){
+              curr=curr.next;
+              size++;
+          }
+          return size;
+      }
+     public static Node AddAt(Node head ,int idx ,  int data){
+         if(head == null){
+             return null ;
+         }
+         Node temp = new Node(data);
+         Node curr = head;
+         int size = getCount(head);
+         if(idx == 0){
+             temp.next = head;
+             head.prev = temp;
+             return temp;
+         }
+         else if( idx-1 > size){
+             return null;
+         }
+         else{
+         while (idx-1 > 0) {
+             curr = curr.next;
+             idx--;
+         }
+         temp.next = curr.next;
+         curr.next.prev = temp;
+         curr.next = temp;
+         temp.prev = curr;
+         return head;
+     }
+  }
+      public static void printList(Node head){
+          Node curr = head;
+          while (curr != null){
+              System.out.print(curr.data+" ");
+              curr = curr.next;
+          }
+      }
