@@ -1,0 +1,48 @@
+// Intersection Node In Two LinkedList Using Floyd Method
+class Node { 
+    int data; 
+    Node next; 
+
+    Node(int d) { 
+        data = d; 
+        next = null; 
+    } 
+} 
+public class IntersectionNodeInTwoLLMethod3 {
+    public static Node findFirstNode(Node head){
+        Node slow = head;
+        Node fast = head;
+        
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if(slow == fast){
+                break;
+            }
+        }
+        if(slow != fast){ //loop is not detected
+            return null;
+        }
+        slow = head;
+        while(fast != slow){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+    public static Node intersectionPoint(Node head1 , Node head2){
+        Node curr1 = head1;
+        while(curr1.next != null){
+            curr1 = curr1.next;
+        }
+        Node tail = curr1;
+        tail.next = head2;
+
+        Node inter = findFirstNode(head1);
+        return inter;
+    }
+    public static void main(String[] args) {
+        
+    }
+}
