@@ -1,0 +1,59 @@
+import java.util.*;
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int d) {
+        data = d;
+        next = null;
+        prev = null;
+    }
+}
+  class DLL{
+     public static Node addAfter(Node head ,int data , int refNode ){
+          Node temp = new Node(data);
+         if(head == null){
+             return temp ;
+         }
+         Node curr = head;
+         while(curr .next != null){
+             curr = curr.next;
+         }
+         Node tail = curr;
+         if( tail.data == refNode){
+             tail.next = temp;
+             temp.prev = tail;
+             return head;
+         }
+         curr = head;
+         while(curr != null){
+             if(curr.data == refNode){
+                 temp.next = curr.next;
+                 curr.next.prev = temp;
+                 curr.next = temp;
+                 temp.prev = curr;
+                 }
+             curr = curr.next;
+         }
+         return head;
+  }
+      public static void printList(Node head){
+          Node curr = head;
+          while (curr != null){
+              System.out.print(curr.data+" ");
+              curr = curr.next;
+          }
+      }
+
+      public static void main(String[] args) {
+          Node head=new Node(10);
+          Node temp1=new Node(20);
+          Node temp2=new Node(30);
+          head.next=temp1;
+          temp1.prev=head;
+          temp1.next=temp2;
+          temp2.prev=temp1;
+          Node ad = addAfter(head , 60 ,20 );
+          printList(ad);
+      }
+ }
