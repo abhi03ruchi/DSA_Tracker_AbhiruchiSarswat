@@ -1,0 +1,50 @@
+import java.util.*;
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int d) {
+        data = d;
+        next = null;
+        prev = null;
+    }
+}
+  class newzz{
+      public static Node findnode(Node head , int refNode ){
+          if(head == null){
+              return null;
+          }
+          Node curr = head;
+          while(curr != null){
+              if(curr.data == refNode){
+                  removeBefore(curr);
+                  break;
+              }
+              curr = curr.next;
+          }
+          return head;
+      }
+    public static void removeBefore( Node node){  //node = node of DLL,whose before node has to be deleted
+        Node temp = node.prev;
+        if (node.prev == null) {
+            return;
+        }
+        if(temp.prev != null){
+            temp.prev.next = node;
+            node.prev = temp.prev;
+        }
+        else{
+            node.prev = temp.prev;
+            temp.next = null;
+        }
+    }
+
+      public static void printList(Node head){
+          Node curr = head;
+          while (curr != null){
+              System.out.print(curr.data+" ");
+              curr = curr.next;
+          }
+      }
+
+    }
