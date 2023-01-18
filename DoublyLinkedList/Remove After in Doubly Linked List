@@ -1,0 +1,44 @@
+import java.util.*;
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int d) {
+        data = d;
+        next = null;
+        prev = null;
+    }
+}
+  class dll {
+     public static Node RemoveAfter(Node head , int refNode ){
+         if(head == null){
+             return null ;
+         }
+         Node curr = head;
+         while(curr != null){
+             if(curr.data == refNode){
+                 if(curr.next == null){
+                     return head;
+                 }
+                 else if(curr.next.next == null ){
+                     curr.next.prev = null;
+                     curr.next = null;
+                 }
+                 else{
+                     curr.next.next.prev = curr;
+                     curr.next = curr.next.next;
+                 }
+         }
+             curr = curr.next;
+     }
+
+         return head;
+  }
+      public static void printList(Node head){
+          Node curr = head;
+          while (curr != null){
+              System.out.print(curr.data+" ");
+              curr = curr.next;
+          }
+      }
+}
