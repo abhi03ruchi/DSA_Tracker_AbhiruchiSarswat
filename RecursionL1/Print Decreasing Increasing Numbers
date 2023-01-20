@@ -1,4 +1,5 @@
-public class genz {
+
+public class METHOD1 {
     public static void printD(int n){
         if(n == 0){
             return;
@@ -16,6 +17,23 @@ public class genz {
     public static void printDI(int n){
         printD(n);
         printI(n);
+    }
+    public static void main(String[] args) {
+        int n = 5;
+        printDI(n);
+    }
+}
+
+// METHOD2
+
+public class METHOD2 {
+    public static void printDI(int n){
+        if(n == 0){
+            return;
+        }
+        System.out.println(n);
+        printDI(n-1);
+        System.out.println(n);
     }
     public static void main(String[] args) {
         int n = 5;
