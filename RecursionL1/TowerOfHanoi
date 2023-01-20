@@ -1,0 +1,15 @@
+public class genz {
+    public static void toh(int n , int from , int to , int helper){
+        if(n == 0){
+            return;
+        }
+        toh(n-1 , from , helper , to);
+        System.out.println( n +" [ "+ from +" --> "+ to + " ] " );
+        toh(n-1 , helper , to , from);
+    }
+
+    public static void main(String[] args) {
+        int n = 5;
+        toh(3 , 1 ,2 ,3);
+    }
+}
