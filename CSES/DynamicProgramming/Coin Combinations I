@@ -1,1 +1,95 @@
 
+
+
+import java.io.*;
+import java.util.*;
+
+// RECURSION 
+
+ public static int solve(int coins[], int amount  ) {
+        int n = coins.length;
+        if (amount == 0) {
+            return 1; // There is one way to make the sum 0, by not picking any coins.
+        }
+        if (amount < 0 ) {
+            return 0; 
+        }
+        
+        int ans = 0;
+        for( int i = 0 ; i < n ; i++ ){
+            ans = ans + solve( coins ,  amount - coins[i]  );
+        }
+        return  (ans % 1000000007) ;
+    }
+
+    public static void main(String[] args) {
+        int coins[] = {2, 3, 5};
+        int x = 9;
+        int n = coins.length;
+
+        int ans = solve(coins, x );
+        System.out.println(ans); // Output should be 8
+    } 
+
+// TOP DOWN APPROACH 
+
+public static int solve(int coins[], int amount , int dp[] ) {
+        int n = coins.length;
+        if (amount == 0) {
+            return 1; // There is one way to make the sum 0, by not picking any coins.
+        }
+        if (amount < 0 ) {
+            return 0; 
+        }
+        if( dp[amount] != -1 ){
+            return dp[amount];
+        }
+        
+        int ans = 0;
+        for( int i = 0 ; i < n ; i++ ){
+            ans = ans + solve( coins ,  amount - coins[i] , dp );
+        }
+        return dp[amount] = (ans % 1000000007) ;
+    }
+
+    public static void main(String[] args) {
+        int coins[] = {2, 3, 5};
+        int x = 9;
+        int n = coins.length;
+        int dp[] = new int[x + 1];
+        Arrays.fill( dp , -1 );
+
+        int ans = solve(coins, x , dp );
+        System.out.println(ans); // Output should be 8
+    }  
+
+// BOTTOM UP APPROACH
+
+  public static int solve(int coins[], int amount) {
+    int n = coins.length;
+    
+    int dp[] = new int[amount + 1];
+    
+    dp[0] = 1;
+
+    for (int i = 1; i <= amount; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i - coins[j] >= 0) {
+                dp[i] = (dp[i] + dp[i - coins[j]]) % 1000000007;
+            }
+        }
+    }
+
+    return dp[amount];
+}
+
+public static void main(String[] args) {
+    int coins[] = {2, 3, 5};
+    int x = 9;
+    int n = coins.length;
+
+    int ans = solve(coins, x);
+    System.out.println(ans); // Output should be 8
+}
+
+
