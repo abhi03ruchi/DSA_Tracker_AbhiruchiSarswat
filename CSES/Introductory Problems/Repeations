@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Repeations {
+    public static long solve( String s ) {
+        int j = 1;
+        int i = 0 ;
+        int n = s.length();
+        if( n == 1){
+            return 1;
+        }
+        int size = 0;
+        while( j < n ){
+           if( s.charAt(i)== s.charAt(j) ){
+                j++;
+           }
+           else{
+                i=j;
+                j++;
+           }
+            size = Math.max( size , j-i);
+        }
+        return size;
+      }
+  
+      public static void main(String[] args) {
+        // take string as input from user
+        Scanner sc = new Scanner(System.in);
+        String ans = sc.nextLine();
+        //   String ans = "ATTCGGGA"; 
+          System.out.println(solve(ans ));
+      }
+}
