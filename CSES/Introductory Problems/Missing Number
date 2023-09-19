@@ -1,0 +1,44 @@
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class MinimizingCoins {
+// METHOD 1
+    public static long solve( long arr[] , long n ) {
+       HashSet<Long> hs = new HashSet<>();
+       for (int i = 0; i < arr.length; i++) {
+              hs.add(arr[i]);
+        }
+        for( long i = 1 ; i <= n ; i++ ){
+            if( ! hs.contains(i) ){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // METHOD 2 
+    public static long solve2( long arr[] , long n ){
+        int sum = 0;
+        for (int i = 1; i <= n ; i++) {
+            sum = sum + i;
+        }
+        int actualsum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            actualsum = (int) (actualsum + arr[i]);
+        }
+        return sum - actualsum;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long n = sc.nextLong();
+        // input an array from the user
+        long arr[] = new long[(int) n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextLong();
+        }
+
+        long result = solve2(arr, n);
+        System.out.println(result);
+    }
+}
