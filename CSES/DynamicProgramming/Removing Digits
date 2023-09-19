@@ -1,1 +1,26 @@
 
+
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static int solve( int n ) {
+        if( n == 0 ){
+            return 0 ;
+        }
+      
+       String k  = Integer.toString(n);
+       char ch [] = k.toCharArray();
+       Arrays.sort(ch);
+       int digit = ch[ch.length - 1 ] - '0';
+       return 1 + solve(n - digit) ;
+}
+    public static void main(String[] args) {
+     
+        int n = 4;
+        int ans = solve(n);
+        System.out.println(ans); 
+    }
+}
+
