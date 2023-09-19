@@ -1,0 +1,77 @@
+import java.util.*;
+
+public class DiceCombinations {
+       
+   // MY INTIAL SOLN 
+public static int solve(int n, int idx) {
+    if (n == 0) {
+        return 1;
+    }
+    if (idx > 6 ) {
+        return 0;
+    }
+
+    int choose = 0;
+    if (idx <= n ) {
+        choose = solve(n - idx, idx);
+    }
+    int notchoose = solve(n, idx + 1);
+    return (choose + notchoose) % 1000000007 ;
+}
+
+public static int solve2( int n ){
+    if( n == 0 ){
+        return 1;
+    }
+    if( n < 0 ){
+        return 0;
+    }
+    int ans = 0;
+    for (int i = 1; i <=6 ; i++) {
+        ans = ans + solve2(n - i); 
+    }
+    return ans % 1000000007 ;
+}
+
+public static int solve3( int n , int [] dp ){
+    if( n == 0 ){
+        return 1;
+    }
+    if( n < 0 ){
+        return 0;
+    }
+    if( dp[n] != -1){
+        return dp[n];
+    }
+    int ans = 0;
+    for (int i = 1; i <=6 ; i++) {
+        ans = ans + solve3( n - i , dp );
+    }
+    return dp[n] = ans % 1000000007 ;
+}
+
+public static int solve4( int n  ){
+    int dp[] = new int[n+1];
+
+    // BASE CASE
+    dp[0] = 1;
+    for (int i = 1; i <=n ; i++) {
+        for (int j = 1; j <=6 ; j++) {
+            if( i - j >= 0 ){
+                dp[i] = dp[i] + dp[i-j];
+            }
+        }
+    }
+    return dp[n] % 1000000007 ;
+
+}
+
+	public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int no = sc.nextInt();
+        // int dp[] = new int[no+1];
+        // Arrays.fill(dp,-1); 
+	    int x = solve4( no  );
+	    System.out.println( x );
+	}
+}
