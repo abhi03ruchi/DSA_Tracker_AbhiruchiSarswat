@@ -1,1 +1,36 @@
+import java.io.*;
+import java.util.*;
 
+class GFG {
+
+// RECURSION 
+    public static int solve(int coins[], int amount, int idx) {
+        int n = coins.length;
+        if (amount == 0) {
+            return 1; // There is one way to make the sum 0, by not picking any coins.
+        }
+        if (idx == n) {
+            return 0; // We have exhausted all available coins, and the sum is not yet 0.
+        }
+        int pick = 0;
+        if (coins[idx] <= amount) {
+            pick = solve(coins, amount - coins[idx], idx);
+        }
+        int notpick = solve(coins, amount, idx + 1);
+
+        return pick + notpick;
+    }
+
+    public static void main(String[] args) {
+        int coins[] = {2, 3, 5};
+        int x = 9;
+        int n = coins.length;
+
+        int ans = solve(coins, x, 0);
+        System.out.println(ans); // Output should be 8
+    }
+
+// TOP DOWN APPROACH
+
+// BOTTOM UP APPROACH 
+}
