@@ -1,0 +1,25 @@
+import java.util.Scanner;
+ 
+public class MinimizingCoins {
+    public static long solve( long n ){
+      // base case 
+      if(n < 5){
+          return 1;
+      }
+      long ans = n / 5;
+      return ans;
+   }
+   public static long solve2(long n) {
+    long count = 0;
+    for (long i = 5; n / i >= 1; i *= 5) {
+        count =  count + (n / i) ;
+    }
+    return count;
+}
+   public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+        long n = scanner.nextLong(); 
+        System.out.println(solve2(n)%1000000007);
+        scanner.close(); // Close the scanner when done
+    }
+   }
