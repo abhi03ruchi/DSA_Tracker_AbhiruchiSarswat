@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+
+  public class MinimizingCoins {
+    private static void solve(String s ,  List<String> ans , String com) {
+      
+      // base case
+      if( s.length()== 0 ){
+        if(! ans.contains(com)){
+          ans.add(com);
+        }
+        return;
+      }
+
+      for( int i = 0 ; i<s.length() ; i++ ){
+        String left = s.substring(0 , i);
+        String right = s.substring(i+1);
+
+        String ros = left + right;
+
+        solve(ros, ans, com+s.charAt(i));
+      }
+    }
+
+    public static void main(String[] args) {
+      Scanner scanner = new Scanner(System.in);
+      String s = scanner.nextLine();
+      List<String> ans = new ArrayList<>();
+      solve(s , ans , "");
+      System.out.println(ans.size());
+      for( String str : ans ){
+        System.out.println(str);
+      }
+    }
+  }
+  
